@@ -28,6 +28,50 @@ You need to install:
 
 ## Step-by-step
 
+### 0. Heartbeat — confirm you're alive
+
+**Before doing anything else**, post an "I'm alive" notification so Lewis knows the cloud routine has actually started:
+
+```bash
+curl -s -X POST -H "x-build-agent-secret: $FORTE_CONTROL_SECRET" -H "content-type: application/json" \
+  -d "{\"kind\":\"system\",\"title\":\"Routine heartbeat\",\"detail\":\"Cloud routine started. Bootstrapping tools next.\",\"url\":\"/dashboard\"}" \
+  "$FORTE_CONTROL_BASE_URL/api/notifications"
+```
+
+If this curl fails (network / auth / unreachable), there's no point continuing — exit with a final fprintf to stderr describing what failed. Lewis sees `nothing → silent bootstrap failure`; sees heartbeat → next step.
+
+### 0.5. Diagnose tool installation
+
+Try each install IN ORDER. If ANY fails (non-zero exit), post a notification telling Lewis which one + the error, then exit cleanly:
+
+```bash
+which ffmpeg || (sudo apt-get update -qq && sudo apt-get install -y ffmpeg) || (apt-get install -y ffmpeg) || {
+  curl -s -X POST -H "x-build-agent-secret: $FORTE_CONTROL_SECRET" -H "content-type: application/json" \
+    -d "{\"kind\":\"system\",\"title\":\"Routine: ffmpeg install failed\",\"detail\":\"Cannot install ffmpeg — sandbox may lack sudo. Need alternative install method.\"}" \
+    "$FORTE_CONTROL_BASE_URL/api/notifications"
+  exit 1
+}
+
+which yt-dlp || pip install --user yt-dlp || pip install yt-dlp || {
+  curl -s -X POST -H "x-build-agent-secret: $FORTE_CONTROL_SECRET" -H "content-type: application/json" \
+    -d "{\"kind\":\"system\",\"title\":\"Routine: yt-dlp install failed\",\"detail\":\"Cannot install yt-dlp via pip. Investigate.\"}" \
+    "$FORTE_CONTROL_BASE_URL/api/notifications"
+  exit 1
+}
+
+which netlify || npm install -g netlify-cli || {
+  curl -s -X POST -H "x-build-agent-secret: $FORTE_CONTROL_SECRET" -H "content-type: application/json" \
+    -d "{\"kind\":\"system\",\"title\":\"Routine: netlify-cli install failed\",\"detail\":\"npm install -g netlify-cli rejected. May need alternative install.\"}" \
+    "$FORTE_CONTROL_BASE_URL/api/notifications"
+  exit 1
+}
+
+# All tools available — post a success-bootstrap ping
+curl -s -X POST -H "x-build-agent-secret: $FORTE_CONTROL_SECRET" -H "content-type: application/json" \
+  -d "{\"kind\":\"system\",\"title\":\"Routine: tools ready\",\"detail\":\"ffmpeg, yt-dlp, netlify-cli all installed. Starting build.\"}" \
+  "$FORTE_CONTROL_BASE_URL/api/notifications"
+```
+
 ### 1. Pull the next queued lead
 
 ```bash
