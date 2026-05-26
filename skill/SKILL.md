@@ -13,10 +13,34 @@ Source research: `C:/dev/Claude/Projects/Forte Design/sites/_golf-scout-2026-05-
 
 ## Pricing & positioning (lock this in every conversation)
 
-- **£999 setup + £99/mo recurring.** Hold the line — even if the club asks for a discount, the work that justifies this price (drone hero, custom design, full section coverage, hosted on Vercel) genuinely lives up to it.
-- **Positioning line:** *"Wentworth-tier site at a fraction of the cost."* Wentworth's site was built by The Hideout (luxury hospitality agency) for what is almost certainly a five-figure sum. We're delivering a similar visual standard for £999.
-- **Competitor frame:** GolfWorking is the templated specialist in this space (Rotherham, Whittington Heath, etc. — see scout). Their bundle is £1.5k–£3.5k templated. Our angle: *custom for less than their templated.*
+### Current phase: PORTFOLIO LAUNCH (updated 2026-05-26)
+
+Forte Design is in launch phase. The decision is to **build the full Atelier-tier stack into every site** (signature hole explorer, Three.js decorative WebGL, scroll chapters, live weather, ambient audio toggle, visitor-type personalisation, motion system) but **sell at a flat £1,000 setup + £99/mo launch price** while building the case-study portfolio.
+
+This is deliberate undercharging during portfolio-building. Once we have 5-10 deployed clients with permission to namecheck, prices rise to standard tier pricing (below). Until then:
+
+- **Every cold-outreach lead is quoted £1,000 setup + £99/mo.** No menu, no tiers, no Essence/Signature/Atelier conversations with prospects yet.
+- **Internal build value: £4,999 setup + £199/mo (Atelier).** That is the real cost of the work — the £1,000 is a launch promo to fill the portfolio.
+- **Build to Atelier standard every time.** Even a £1,000 launch deal gets the full 15-point Premium Doctrine treatment. The portfolio is the product.
+- **Hold £1,000 firm during launch.** No further discounting. If a club won't pay £1,000 they're not the right fit; pass.
+- **Launch promo language for emails:** *"We're in launch phase building our portfolio — first ten UK clubs get our full premium experience for £1,000 instead of our standard £4,999. After that, normal pricing applies."* Use this framing if a prospect asks "why so cheap?"
+- **Sunset condition:** Once we have **10 deployed clients with screenshots and a "Want this for your club?" CTA on each demo,** end the launch promo. Switch to public tier pricing below.
+
+### Standard tier pricing (post-launch — for reference only, do NOT pitch until launch ends)
+
+| Tier | Setup | Monthly | What's included |
+|---|---|---|---|
+| Essence | £999 | £99 | Motion system, weather widget, scroll chapters, multi-page, cinematic hero |
+| Signature | £2,499 | £149 | + Hole Explorer + clubhouse floorplan + smart data viz |
+| Atelier | £4,999 | £199 | + Three.js WebGL + ambient audio + visitor-type personalisation + members-area mockup |
+
+Do not surface this table to prospects during launch phase. It is a future-state document.
+
+### Universal rules
 - **No drone bolt-on.** We do NOT shoot drone footage. We use what already exists publicly (see Drone Hero Pattern below). If the club asks "can you commission a drone shoot for us?" the answer is: "We'll connect you with a UK drone pilot for that — typically £150–£400 — and we'll integrate the footage when you've got it." Don't take that work on.
+- **No filming, no photography, no on-site capture for any tier.** Every Atelier feature is code + public assets. Confirmed constraint, do not propose features requiring capture.
+- **Positioning line:** *"Wentworth-tier site at a fraction of the cost."* Works for both launch (£1,000) and post-launch (£4,999) — Wentworth's site was almost certainly five-figure-plus.
+- **Competitor frame:** GolfWorking is the templated specialist in this space. Their bundle is £1.5k–£3.5k templated. Our launch promo undercuts them on price AND beats them on capability.
 
 ## Architecture — MULTI-PAGE, matching the club's existing sitemap
 
@@ -172,9 +196,111 @@ Each `.eyebrow` gets a `.brass-rule` span prepended. The rule animates from 0 wi
 - ✗ **Custom cursors** — gimmicky for golf-club committees; remove
 - ✗ **Marquee text bands** — too maximalist; feels like a gaming site
 - ✗ **Letter-by-letter hero entrance** — too busy; word-level is the right restraint
-- ✗ **Heavy WebGL shader effects** — overkill; rural golf-club audiences don't appreciate it
+- ✗ **Heavy WebGL shader effects** — overkill; rural golf-club audiences don't appreciate it (subtle decorative Three.js is fine at Atelier tier; gaming-shader stuff is not)
 - ✗ **Page-load curtain transitions** — feels Flash-era; modern sites just load
 - ✗ **Pinned sections** — disorienting for over-50 audiences who don't expect content to "stick"
+
+## The 15-point Premium Doctrine (NEW 2026-05-26)
+
+Captured from Lewis's strategic brief. Every build is audited against these 15 pillars before deploy. Score 11+ ✅ to ship Essence; 13+ for Signature; 15 for Atelier.
+
+| # | Pillar | What to deliver |
+|---|---|---|
+| 1 | Cinematic homepage hero | Self-hosted MP4 stitched from public drone footage (preferred) OR YouTube embed if no MP4 segments available. Always with overlay gradient, slow Ken Burns scale, audio off. |
+| 2 | Scroll storytelling | Section-by-section *chapters* with background colour morph (`body[data-chapter]`), image clip-path reveals, headings rising from overflow-hidden masks. See Chapter System pattern below. |
+| 3 | Interactive course experience | **Signature tier:** Hole Explorer Pattern (SVG routing map + clickable markers + procedural per-hole plan view + animated par/yards/SI counters). See pattern below. |
+| 4 | Ultra-smooth motion | Lenis + GSAP ScrollTrigger as documented above. Weighted, never gimmicky. |
+| 5 | Premium member experience | Even when we link to the club's existing portal (BRS / IntelligentGolf / ClubV1), frame the link in a polished card with brass border + animated CTA. At Atelier tier, mock a members-area preview dashboard inline on the homepage. |
+| 6 | Luxury typography & layout | Cormorant Garamond / Fraunces (serif) + DM Sans (UI). Editorial spacing. Oversized H1 (clamp 2.8rem → 5.6rem). Brass for emphasis. |
+| 7 | Ambient microinteractions | Magnetic CTAs, brass-rule draws, hero word rise, counter animations, weather widget. Subtle. No "wow." |
+| 8 | Interactive clubhouse / venue tour | **Signature tier:** SVG floorplan with hover hotspots that reveal Google-public photos. Day/night CSS toggle. |
+| 9 | Smart data visualisation | Animated par / yardage / founded-year / member-count counters with `[data-counter]`. Live weather widget. |
+| 10 | Premium booking UX | We link out to the existing platform but design the *bridge* — a stunning visitor-facing tee-time card with price-first hierarchy, "First time?" anchor, and four-touchpoint pattern (sticky header CTA, mobile bottom bar, hero CTA, dedicated section). |
+| 11 | AI / personalisation | **Atelier tier only:** visitor-type detection by referrer + scroll behaviour + time of day. Surface different CTAs / hero variants. No actual AI needed — heuristics. |
+| 12 | Signature features | The Hole Explorer is the agency hallmark. Every Signature/Atelier build retrofits it. Becomes "that's a Lewis Hull golf site." |
+| 13 | WebGL / 3D | **Atelier tier only:** subtle decorative Three.js — rotating brass logo, animated grass particles, mist drift. Never gameplay-style. |
+| 14 | Audio design | **Atelier tier only:** royalty-free ambient (birds + soft wind) on tasteful opt-in toggle. Default OFF. |
+| 15 | Performance | Vanilla JS + CDN libs + lazy MP4 + responsive images. Target Lighthouse 90+ even with motion stack. |
+
+**Constraint reminder:** Lewis cannot film. Every elite-feeling outcome in this doctrine is achievable through code + publicly available assets (YouTube embeds, Google Business photos, social-media stills, public scorecards, OS Maps satellite tiles, weather APIs, royalty-free audio). Do not propose features that require on-site capture.
+
+## Chapter System pattern (Signature tier, 2026-05-26)
+
+Tag major sections with `data-chapter="arrival|course|experience|heritage|contact"`. JS observer watches them and sets `body[data-chapter]` accordingly. CSS transitions `body { background-color }` over 1.2s — the entire page subtly shifts palette as the visitor moves through the narrative.
+
+Snippet location: `forte-design-tooling/snippets/forte-chapters-weather.css` + `.js`. Append to every demo's `styles.css` / `scripts.js`.
+
+Companion HTML patterns:
+- `<h2 class="chapter-heading">` — wrapped in overflow span, rises from below on intersect
+- `<img class="chapter-img">` — clip-path reveal from left to right (1.6s)
+- `.story-image` / `.section-photo` — same clip-path treatment
+
+## Live Weather Widget (Essence+, 2026-05-26)
+
+Uses Open-Meteo API (free, no API key required, no rate limits in practice).
+
+Requires one meta tag in every page's `<head>`:
+
+```html
+<meta name="forte-club-coords" content="LAT,LNG"/>
+```
+
+JS auto-detects the meta, fetches current weather (temp °C, weather code, wind mph + direction), renders a fixed bottom-right widget with brass-trimmed glassmorphism backdrop. Wind arrow rotates to compass bearing (golfer-relevant). Silent failure if API unreachable — no widget shown, no broken UI.
+
+Coords sources: club's contact page address → Google Maps right-click → "Copy coordinates" (decimal format).
+
+## Hole Explorer Pattern (Signature tier flagship, 2026-05-26)
+
+The agency-defining feature. Built first for Beeston Fields. Becomes the lead screenshot in every Signature-tier cold-outreach email.
+
+### Required input data (collect during research)
+
+For each of 18 holes:
+- Hole number (1-18)
+- Par (3 / 4 / 5)
+- Yards from white tees
+- Stroke Index (1 = hardest)
+- Description sentence ("dog-leg right", "tree-lined", "uphill", etc. — the keywords drive the procedural plan-view SVG)
+- Drone flyover YouTube ID (if available — fallback to no video link if club has none)
+- Shape: `straight | dogleg-l | dogleg-r | short`
+
+### Layout
+
+```
++--------------------------------+----------------------+
+|  ROUTING MAP                   |  HOLE DETAIL CARD    |
+|  (stylised SVG, 1000×600       |  (sticky, slides in  |
+|   viewBox, 18 numbered         |   when marker hovered |
+|   markers, brass-coloured      |   or clicked)         |
+|   curved path connecting       |                      |
+|   them, clubhouse label at     |                      |
+|   the bottom)                  |                      |
++--------------------------------+----------------------+
+```
+
+The detail card renders: hole number (big italic serif), Par/Yards/SI animated counters, **procedurally generated stylised plan-view SVG of that hole** (fairway path, bunkers, green, pin, tee), description in italics, "Watch the drone flyover ▶" CTA that triggers the existing video modal.
+
+### Procedural hole-plan SVG generator
+
+The clever bit. A function `holePlanSVG(holeData)` generates a unique stylised SVG for each hole based on:
+- Shape → fairway path curvature (dogleg variants bend up/down at midpoint)
+- SI difficulty → bunker count (1-6 = 4 bunkers, 7-12 = 3, 13-18 = 2)
+- Description keywords → trees rendered if `/tree|wood|parkland/i`, water if `/water|stream|brook/i`
+
+No hand-illustration required. The generator produces all 18 unique-looking SVGs from the data alone.
+
+### Reference implementation
+- HTML markup builder: `sites/beeston-fields-golf-club/_build.mjs` — search for "HOLE EXPLORER" / "COURSE TOUR"
+- CSS: `sites/beeston-fields-golf-club/dist/styles.css` — search for "HOLE EXPLORER"
+- JS: `sites/beeston-fields-golf-club/dist/scripts.js` — search for "HOLE EXPLORER"
+
+### Marker positioning
+
+Place markers on the routing SVG at approximate positions that suggest the course flow — *not geographically accurate* (we can't survey). Three rows works: holes 1-6 climbing across the top, 7-12 winding through middle, 13-18 returning along the bottom, clubhouse labelled at centre-bottom. Connect with a curving `M ... Q ... Q ...` path that animates `stroke-dashoffset` from 1200 → 0 over 3.2s on load.
+
+### Signature hole call-out
+
+Mark the club's signature hole (e.g. Beeston Fields hole 6, "The right line is closer to the trees than feels comfortable") with `class="is-signature"` on the marker. Apply heavier brass stroke. Auto-open this hole's detail card 2.4s after load on desktop (not touch) so first-time viewers see the pattern without needing to discover it.
 
 ## Image sourcing — find 6-10 professional photos per club (NEW 2026-05-26)
 
