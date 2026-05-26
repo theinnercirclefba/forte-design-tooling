@@ -77,9 +77,60 @@ Use a Node build script (`_build.mjs`) at the project root that takes a `templat
 5. **Build per the section structure below.** Every section is opt-out, not opt-in — if the club explicitly doesn't do weddings, drop that section, otherwise include it (most clubs do but bury it on their current site).
 6. **Self-test in browser** (Master Agent enforces this in Phase 2 — follow its verification checklist).
 
-## Hero video — SELF-HOSTED MP4 is the new default (as of 2026-05-26)
+## Required policy / footer pages (LEARNED FROM SHERWOOD FOREST 2026-05-26)
 
-After multiple builds where YouTube's pause/play icons and adaptive-bitrate mobile downgrades degraded the hero experience, the new standard is **self-hosted MP4 in a `<video>` tag**, not a YouTube iframe embed.
+Every multi-page golf build MUST include the following pages, accessible from the footer nav. Clubs are legally obliged to publish most of these. The fact that many templated GolfWorking sites have them and many Forte demos don't is a "you forgot this on your current site" sales hook.
+
+| Page | Content (boilerplate adapted with club name) |
+|---|---|
+| `/club-rules` | Club & Course Rules — dress code, etiquette, course management |
+| `/local-rules` | Local Rules — course-specific R&A rule modifications (OB, drops, hazards) |
+| `/health-safety-policy` | Health & Safety Policy — visitor + member liability, course hazards |
+| `/safeguarding-policy` | Safeguarding Policy — junior + vulnerable adult protection (England Golf required) |
+| `/equality-diversity-policy` | Equality & Diversity Policy — England Golf required |
+| `/disciplinary-policy` | Disciplinary Policy — member conduct + sanctions framework |
+| `/booking-terms` | Booking T&Cs — visitor green-fee terms, cancellation, deposits |
+| `/visitor-terms` | Visitor T&Cs — conduct on club premises |
+| `/visitor-near-miss` | Visitor Near-Miss Reporting (only for courses with public footpaths crossing fairways — Sherwood Forest model) |
+
+Build these as simple text-heavy pages with the standard page-hero banner pattern + body copy. Pull the actual rules from the club's existing site where they exist; otherwise use the standard England Golf templates.
+
+## Hero proof-line rule (LEARNED FROM SHERWOOD FOREST 2026-05-26)
+
+The hero should lead with the strongest third-party authority claim, in this priority order:
+
+1. **National ranking from an authority** — *"Ranked in the 100 Top Courses in England — Golf Monthly, Golf World & Today's Golfer"* (Sherwood Forest pattern). Quote the source.
+2. **Major tournament hosting** — *"Open Championship Regional Qualifying venue since [year]"*
+3. **Notable architect attribution** — *"A Harry Colt heathland, extended by James Braid in 1927"*
+4. **Famous-member affiliation** — *"Where Danny Willett learned the game that won him the Masters"*
+5. **Heritage / founding** — *"One of the twenty-one oldest golf clubs in the world, founded 1845"* (Panmure pattern)
+
+Only one proof line per hero. Pick the strongest verifiable claim. Quote the source so it reads as a third-party endorsement, not self-description.
+
+## Hero logo treatment — two variants
+
+Default: **Left-aligned wordmark** in Manrope uppercase letter-spaced (Beeston Fields / Whittington Heath pattern). Works on every brand.
+
+Optional: **Centered crest with founding date** (Sherwood Forest pattern) — for clubs with strong heraldry (an actual circular crest, shield, or coat of arms). The crest sits ON the hero video at top-center with the wordmark beneath. Nav becomes minimal (just a hamburger top-right + a primary "Book Online" link). Use for heritage / pre-1900 clubs where the crest IS the brand.
+
+## Hero video — SELF-HOSTED WebM (preferred) or MP4 (as of 2026-05-26)
+
+**Format priority:** WebM (VP9 codec) is ~30% smaller than MP4 (H.264) at equivalent quality. Sherwood Forest's existing site uses WebM. Encode hero as both, serve WebM to browsers that support it:
+
+```html
+<video class="hero-video" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg">
+  <source src="hero.webm" type="video/webm">
+  <source src="hero.mp4" type="video/mp4">
+</video>
+```
+
+To encode WebM with ffmpeg:
+```bash
+ffmpeg -i source.mp4 -an -c:v libvpx-vp9 -crf 30 -b:v 0 -row-mt 1 -movflags +faststart -y hero.webm
+```
+Target: ≤20MB WebM 1080p for ~50s. Always also produce hero.mp4 as fallback.
+
+After multiple builds where YouTube's pause/play icons and adaptive-bitrate mobile downgrades degraded the hero experience, the new standard is **self-hosted video in a `<video>` tag**, not a YouTube iframe embed.
 
 ### Why we switched
 
