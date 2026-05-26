@@ -77,6 +77,171 @@ Use a Node build script (`_build.mjs`) at the project root that takes a `templat
 5. **Build per the section structure below.** Every section is opt-out, not opt-in — if the club explicitly doesn't do weddings, drop that section, otherwise include it (most clubs do but bury it on their current site).
 6. **Self-test in browser** (Master Agent enforces this in Phase 2 — follow its verification checklist).
 
+## Motion & animation system (premium-hospitality standard, LEARNED 2026-05-26)
+
+After multiple builds where static layouts felt "templated golf site" rather than "premium hospitality", the motion system below is **mandatory** on every build. The reference is Aman / Belmond / Six Senses / LE CRANS HOTEL & SPA — restrained motion that signals quality, not maximalist agency-site motion that signals "we're trying too hard".
+
+**Always respect `prefers-reduced-motion: reduce`** — wrap all the JS in a guard that exits early if the user has motion turned off in their OS settings.
+
+### Required libraries (CDN-loaded, no build step)
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+```
+
+### 1. Lenis smooth scroll (MANDATORY, applied site-wide)
+
+The single most impactful upgrade — instantly makes the page feel premium. Buttery momentum scrolling on wheel. Disabled on touch (smoothTouch:false) because it feels janky on phones.
+
+```js
+const lenis = new Lenis({
+  duration: 1.4,
+  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  smoothWheel: true,
+  smoothTouch: false,
+  wheelMultiplier: 1.1,
+});
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(time => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
+```
+
+### 2. Hero word-level rise (page-load entrance)
+
+Split h1 by WORDS (not characters — letter-by-letter is too busy for golf clubs). Each word rises 110% from below with 80ms stagger, 1.1s cubic-bezier(.16,.84,.3,1) easing. Triggers 250ms after page load.
+
+```css
+.hero h1 .word-wrap { display: inline-block; overflow: hidden; vertical-align: top; }
+.hero h1 .word { display: inline-block; transform: translateY(110%); will-change: transform; }
+.hero h1.animate .word { transition: transform 1.1s cubic-bezier(.16,.84,.3,1); transform: translateY(0); }
+```
+
+### 3. Hero scroll parallax (subtle dolly)
+
+Hero text translates -80px and fades to 30% opacity as user scrolls out. Video translates +60px and scales 1.05 in the OPPOSITE direction (creates depth). Both driven by ScrollTrigger scrub:true.
+
+```js
+gsap.to('.hero-content', { scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }, y: -80, opacity: 0.3, ease: 'none' });
+gsap.to('.hero-video-wrap', { scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }, y: 60, scale: 1.05, ease: 'none' });
+```
+
+### 4. Counter animations on heritage stats
+
+Numbers in `.heritage-n` count from 0 to final value as the cell scrolls into view (top 85%). 1.6s ease-out. Works for "1895" and "2023" — skip if the value is purely qualitative ("Par 71" — count the 71 only, prefix stays static).
+
+### 5. Story section scroll reveal
+
+Each paragraph in `.story-text` fades up 40px with 0.9s ease and 80ms stagger. The story callout (quote box) slides in from the right by 60px with 1.1s ease.
+
+### 6. Preview cards stagger
+
+Three preview cards rise 60px sequentially with 0.9s ease + 180ms stagger when `.previews-grid` enters viewport.
+
+### 7. Magnetic CTA buttons (subtle, restrained)
+
+Buttons translate up to 25% of the distance from their center to the cursor when the cursor is within their bounding box. 0.35s cubic-bezier release on mouseleave. Only on hover-capable devices.
+
+```js
+document.querySelectorAll('.btn-primary, .btn-ghost, .nav-cta').forEach(btn => {
+  btn.style.transition = 'transform .35s cubic-bezier(.16,.84,.3,1)';
+  btn.addEventListener('mousemove', e => {
+    const r = btn.getBoundingClientRect();
+    const dx = (e.clientX - r.left - r.width/2) * 0.25;
+    const dy = (e.clientY - r.top - r.height/2) * 0.25;
+    btn.style.transform = `translate(${dx}px, ${dy}px)`;
+  });
+  btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+});
+```
+
+### 8. Brass rule draw-ins on section eyebrows
+
+Each `.eyebrow` gets a `.brass-rule` span prepended. The rule animates from 0 width to 36px when the eyebrow scrolls into view (threshold 0.3).
+
+```css
+.brass-rule { display: inline-block; height: 1px; background: var(--brass); width: 0; transition: width 1s cubic-bezier(.16,.84,.3,1); margin-right: 14px; vertical-align: middle; }
+.brass-rule.in { width: 36px; }
+```
+
+### What we DO NOT use (learned the hard way)
+
+- ✗ **Custom cursors** — gimmicky for golf-club committees; remove
+- ✗ **Marquee text bands** — too maximalist; feels like a gaming site
+- ✗ **Letter-by-letter hero entrance** — too busy; word-level is the right restraint
+- ✗ **Heavy WebGL shader effects** — overkill; rural golf-club audiences don't appreciate it
+- ✗ **Page-load curtain transitions** — feels Flash-era; modern sites just load
+- ✗ **Pinned sections** — disorienting for over-50 audiences who don't expect content to "stick"
+
+## Image sourcing — find 6-10 professional photos per club (NEW 2026-05-26)
+
+Premium hospitality sites are PHOTO-LED. Our text-heavy demos are missing the most powerful visual signal. During the research phase, find professional images of each club in this priority order:
+
+| Priority | Source | Method | Quality |
+|---|---|---|---|
+| 1 | **Club's existing website** | Right-click → save image; check provenance | Usually club-commissioned, highest legal safety |
+| 2 | **Club's Google Business Profile** | maps.google.com/<club> → Photos tab | Mixed (member uploads + club uploads) |
+| 3 | **Club's Instagram grid** | instagram.com/<handle> → highest-res version (right-click → open in new tab → manipulate URL to get full-size) | Usually club-curated |
+| 4 | **Club's Facebook page** | similar — get full-size versions |
+| 5 | **YouTube video thumbnails** (drone tour, marketing reels) | maxresdefault.jpg from each video on the channel | Drone aerials, often professional |
+| 6 | **Google Images** filtered "labeled for reuse" | Last resort; check attribution |
+
+For each image found, document in `research.md`:
+
+```
+## Image assets gathered
+- `clubhouse-exterior.jpg` — from <source URL>. Shot: south-facing facade with course in foreground. Resolution: 1920x1080. Attribution: <photographer if known>.
+- `dining-room-1.jpg` — from <source>. Shot: principal dining room with sunset lighting. ...
+- `signature-hole-aerial.jpg` — from YouTube thumbnail of <video>. Shot: hole 13 from above. ...
+- ... (aim for 6-10 in total)
+```
+
+Save the actual image files to `sites/<slug>/dist/images/` with descriptive kebab-case filenames. Target categories to find:
+1. Clubhouse exterior (signature building shot)
+2. Clubhouse interior — bar / lounge
+3. Dining room — formal dinner / Sunday lunch
+4. Signature hole — close-up of the green or distinctive feature
+5. Wide course aerial (drone)
+6. Member action shot — group on a tee or green (faces blurred if needed for privacy)
+7. Pro shop / facilities
+8. Wedding / function setup (if the club does these — huge revenue page upgrade)
+9. Course detail — heather, sand, water hazard, signature tree
+10. Founder / heritage object — old trophy / honours board / Captain's tankard
+
+## Photography section pattern (REQUIRED on every multi-page build, 2026-05-26)
+
+Add a `<section class="gallery">` between the heritage strip and the story section on the homepage. 6 images in an editorial 3-column grid. Each image reveals via clip-path on scroll into view.
+
+```html
+<section class="gallery">
+  <div class="gallery-inner">
+    <p class="eyebrow"><span class="brass-rule"></span>The club, in pictures</p>
+    <div class="gallery-grid">
+      <figure class="gallery-item"><img src="images/clubhouse-exterior.jpg" alt="..."/></figure>
+      <figure class="gallery-item"><img src="images/signature-hole-aerial.jpg" alt="..."/></figure>
+      <!-- ... 4 more -->
+    </div>
+  </div>
+</section>
+```
+
+```css
+.gallery { background: var(--ivory-pale); padding: 100px 56px; }
+.gallery-inner { max-width: 1280px; margin: 0 auto; }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.gallery-item { position: relative; aspect-ratio: 4/5; overflow: hidden; clip-path: inset(0 100% 0 0); transition: clip-path 1s cubic-bezier(.16,.84,.3,1); }
+.gallery-item.in { clip-path: inset(0); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease; }
+.gallery-item.in img { transform: scale(1.05); }
+@media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .gallery-grid { grid-template-columns: 1fr; } }
+```
+
+Stagger the `.in` class addition by 120ms per item via IntersectionObserver. The slow inner `<img>` scale on `.in` creates a subtle Ken Burns push that lasts 6 seconds — adds liveness without being motion-busy.
+
 ## Required policy / footer pages (LEARNED FROM SHERWOOD FOREST 2026-05-26)
 
 Every multi-page golf build MUST include the following pages, accessible from the footer nav. Clubs are legally obliged to publish most of these. The fact that many templated GolfWorking sites have them and many Forte demos don't is a "you forgot this on your current site" sales hook.
