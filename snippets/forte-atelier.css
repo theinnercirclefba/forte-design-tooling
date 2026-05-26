@@ -1,0 +1,210 @@
+/* === FORTE ATELIER LAYER === */
+
+/* Three.js decorative canvas (hero corner) */
+.forte-3d-decoration {
+  position: absolute;
+  top: 50%;
+  right: 56px;
+  transform: translateY(-50%);
+  width: 220px;
+  height: 220px;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.8s ease 0.4s;
+}
+.forte-3d-decoration.is-loaded {
+  opacity: 0.6;
+}
+.forte-3d-decoration canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+@media (max-width: 900px) {
+  .forte-3d-decoration {
+    width: 130px;
+    height: 130px;
+    right: 16px;
+    top: 110px;
+    transform: none;
+  }
+  .forte-3d-decoration.is-loaded { opacity: 0.4; }
+}
+@media (max-width: 520px) {
+  .forte-3d-decoration { display: none; }
+}
+
+/* Ambient audio toggle */
+.forte-audio-toggle {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 50;
+  background: rgba(15, 24, 30, 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #f4eed8;
+  border: 1px solid rgba(184, 153, 90, 0.35);
+  border-radius: 999px;
+  padding: 0;
+  width: 46px;
+  height: 46px;
+  cursor: pointer;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), background 0.25s ease, width 0.4s cubic-bezier(.16,.84,.3,1);
+  opacity: 0;
+  transform: translateY(12px);
+  animation: audio-fade-in 0.6s ease 1.4s forwards;
+  overflow: hidden;
+}
+@keyframes audio-fade-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+.forte-audio-toggle:hover {
+  background: rgba(184, 153, 90, 0.95);
+  color: #0E1A24;
+}
+.forte-audio-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.forte-audio-icon svg { width: 100%; height: 100%; fill: currentColor; }
+.forte-audio-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-left: 8px;
+  opacity: 0;
+  width: 0;
+  transition: opacity 0.3s ease, width 0.4s ease;
+}
+.forte-audio-toggle.is-expanded {
+  width: 132px;
+  padding: 0 16px;
+  border-radius: 23px;
+}
+.forte-audio-toggle.is-expanded .forte-audio-label {
+  opacity: 1;
+  width: auto;
+  margin-left: 10px;
+}
+.forte-audio-toggle.is-playing .forte-audio-icon::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(184, 153, 90, 0.5);
+  border-radius: 50%;
+  animation: audio-pulse 2.4s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes audio-pulse {
+  0% { transform: scale(0.85); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+@media (max-width: 720px) {
+  .forte-audio-toggle { bottom: 84px; left: 16px; }
+}
+
+/* Members-area dashboard mockup card (homepage) */
+.forte-member-preview {
+  background: linear-gradient(135deg, #0E1A24 0%, #1a2c3a 100%);
+  color: #f4eed8;
+  border-radius: 16px;
+  padding: 36px 32px;
+  box-shadow: 0 36px 80px -32px rgba(14,26,36,.45), 0 8px 20px -6px rgba(14,26,36,.18);
+  border: 1px solid rgba(184, 153, 90, 0.28);
+  position: relative;
+  overflow: hidden;
+}
+.forte-member-preview::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -30%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(184,153,90,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.forte-member-eyebrow {
+  font-size: 0.66rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #b8995a;
+  margin-bottom: 14px;
+}
+.forte-member-title {
+  font-family: 'Cormorant Garamond', 'Fraunces', serif;
+  font-size: 1.65rem;
+  font-weight: 400;
+  margin-bottom: 26px;
+  color: #f4eed8;
+  line-height: 1.2;
+}
+.forte-member-title em { color: #b8995a; font-style: italic; }
+.forte-member-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.forte-member-card {
+  background: rgba(244, 238, 216, 0.06);
+  border: 1px solid rgba(184, 153, 90, 0.18);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.forte-member-card-lbl {
+  font-size: 0.58rem;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgba(244,238,216,0.55);
+}
+.forte-member-card-val {
+  font-family: 'Cormorant Garamond', 'Fraunces', serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+  color: #f4eed8;
+  line-height: 1.1;
+}
+.forte-member-card-val em { color: #b8995a; font-style: normal; font-weight: 500; }
+.forte-member-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid rgba(184,153,90,0.18);
+  font-size: 0.7rem;
+  color: rgba(244,238,216,0.6);
+}
+.forte-member-pulse {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6b8c4e;
+  margin-right: 6px;
+  box-shadow: 0 0 0 0 rgba(107, 140, 78, 0.7);
+  animation: member-pulse 2s infinite;
+}
+@keyframes member-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(107, 140, 78, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(107, 140, 78, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(107, 140, 78, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forte-3d-decoration { display: none; }
+  .forte-audio-toggle { animation: none; opacity: 1; transform: none; }
+  .forte-audio-toggle.is-playing .forte-audio-icon::before { animation: none; }
+  .forte-member-pulse { animation: none; }
+}

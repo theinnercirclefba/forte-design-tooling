@@ -1,0 +1,63 @@
+/* === HOLE EXPLORER (signature feature) === */
+.hole-explorer-section{padding:96px 0 72px;background:var(--linen)}
+.hole-explorer{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:start}
+.hole-explorer-map{position:relative;background:#fff;border-radius:12px;padding:18px;box-shadow:0 24px 60px -28px rgba(14,26,36,.16),0 4px 14px -6px rgba(14,26,36,.08);border:1px solid rgba(184,153,90,.18)}
+.course-routing{width:100%;height:auto;display:block}
+.map-title{font-family:'Fraunces',serif;font-size:18px;fill:#0E1A24;letter-spacing:.5px}
+.map-sub{font-family:'DM Sans',sans-serif;font-size:11px;fill:#3A4855;letter-spacing:2.5px;text-transform:uppercase}
+.clubhouse-label{font-family:'DM Sans',sans-serif;font-size:11px;fill:#8B6F3A;letter-spacing:1.5px;text-transform:uppercase;font-weight:500}
+
+.routing-path{fill:none;stroke:#B8995A;stroke-width:2;stroke-dasharray:4 6;stroke-linecap:round;opacity:.7;stroke-dashoffset:1200;animation:routing-draw 3.2s cubic-bezier(.16,.84,.3,1) forwards}
+@keyframes routing-draw{to{stroke-dashoffset:0}}
+
+.hole-marker{cursor:pointer;transition:transform .25s cubic-bezier(.34,1.56,.64,1);transform-origin:center;transform-box:fill-box}
+.hole-marker-ring{fill:none;stroke:#B8995A;stroke-width:1;opacity:0;transition:opacity .25s ease,r .25s ease;r:22}
+.hole-marker-bg{fill:#F4EFE0;stroke:#3D5F45;stroke-width:1.5;transition:fill .25s ease,stroke-width .25s ease}
+.hole-marker-num{font-family:'Fraunces',serif;font-size:14px;fill:#0E1A24;font-weight:500;pointer-events:none}
+.hole-marker:hover{transform:scale(1.18)}
+.hole-marker:hover .hole-marker-bg{fill:#3D5F45;stroke-width:2}
+.hole-marker:hover .hole-marker-num{fill:#F4EFE0}
+.hole-marker:hover .hole-marker-ring{opacity:1}
+.hole-marker.is-active .hole-marker-bg{fill:#B8995A;stroke:#3D5F45;stroke-width:2}
+.hole-marker.is-active .hole-marker-num{fill:#0E1A24}
+.hole-marker.is-active .hole-marker-ring{opacity:1;stroke:#B8995A;stroke-width:1.5}
+.hole-marker.is-signature .hole-marker-bg{stroke:#B8995A;stroke-width:2.5}
+.hole-marker.is-signature::after{content:""}
+
+.hole-explorer-detail{position:sticky;top:108px;background:#fff;border-radius:12px;padding:36px 32px;box-shadow:0 24px 60px -28px rgba(14,26,36,.18),0 4px 14px -6px rgba(14,26,36,.08);border:1px solid rgba(184,153,90,.18);min-height:480px}
+.hole-detail-empty{text-align:center;padding:40px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:380px}
+.hole-detail-empty h3{font-family:'Fraunces',serif;font-size:1.85rem;font-weight:400;margin:14px 0 18px;color:var(--ink)}
+.hole-detail-empty-text{color:var(--ink-soft);max-width:300px;margin-bottom:36px;font-size:.92rem;line-height:1.6}
+.hole-detail-empty-stats{display:flex;gap:32px;justify-content:center;padding-top:24px;border-top:1px solid rgba(184,153,90,.2);width:100%}
+.hole-detail-empty-stats div{display:flex;flex-direction:column;align-items:center;gap:6px}
+.hole-detail-empty-stats .stat-num{font-family:'Fraunces',serif;font-size:1.7rem;color:var(--brass);font-weight:400}
+.hole-detail-empty-stats .stat-lbl{font-size:.66rem;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft)}
+
+.hole-detail{animation:hole-detail-in .55s cubic-bezier(.16,.84,.3,1)}
+@keyframes hole-detail-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.hole-detail-num-wrap{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid rgba(184,153,90,.25);padding-bottom:18px;margin-bottom:24px}
+.hole-detail-num{font-family:'Fraunces',serif;font-size:4rem;font-weight:400;line-height:1;color:var(--ink);letter-spacing:-.02em}
+.hole-detail-num em{font-style:italic;color:var(--brass);font-weight:300}
+.hole-detail-signature{font-size:.62rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--brass);font-weight:500;padding:6px 10px;border:1px solid var(--brass);border-radius:2px}
+.hole-detail-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.hole-detail-stat{text-align:center;padding:14px 8px;background:#FAF7F0;border-radius:6px;border:1px solid rgba(184,153,90,.15)}
+.hole-detail-stat-num{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:400;color:var(--ink);line-height:1}
+.hole-detail-stat-lbl{font-size:.6rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--ink-soft);margin-top:4px}
+.hole-detail-plan{width:100%;height:140px;margin-bottom:20px;background:#FAF7F0;border-radius:6px;border:1px solid rgba(184,153,90,.15);padding:14px}
+.hole-detail-plan svg{width:100%;height:100%;display:block}
+.hole-detail-desc{font-size:.95rem;line-height:1.7;color:var(--ink);margin-bottom:24px;font-style:italic;font-family:'Fraunces',serif;font-weight:300}
+.hole-detail-cta{display:inline-flex;align-items:center;gap:10px;background:var(--sea-dk,#0E1A24);color:#fff;padding:14px 22px;border-radius:2px;font-size:.74rem;letter-spacing:1.6px;text-transform:uppercase;font-weight:600;text-decoration:none;cursor:pointer;border:0;transition:transform .25s ease,background .25s ease;width:100%;justify-content:center}
+.hole-detail-cta:hover{background:var(--brass);color:var(--ink);transform:translateY(-1px)}
+.hole-detail-cta-icon{width:14px;height:14px;border-radius:50%;background:var(--brass);display:inline-flex;align-items:center;justify-content:center;color:var(--ink);font-size:.6rem}
+
+.hole-explorer-credit{text-align:center;margin-top:32px;font-size:.78rem;color:var(--ink-soft);letter-spacing:.6px}
+.hole-explorer-credit a{color:var(--brass);text-decoration:none;border-bottom:1px solid rgba(184,153,90,.4)}
+
+@media (max-width:900px){
+  .hole-explorer{grid-template-columns:1fr;gap:24px}
+  .hole-explorer-detail{position:static;min-height:0;padding:24px}
+  .hole-detail-num{font-size:3rem}
+  .hole-explorer-map{padding:10px}
+}
+
+.hole-detail-meta{margin-top:14px;padding:14px 18px;background:#FAF7F0;border:1px solid rgba(184,153,90,.25);border-radius:6px;font-family:'Cormorant Garamond','Fraunces',serif;font-size:1.15rem;color:var(--brass);text-align:center;letter-spacing:1.5px;text-transform:uppercase;font-weight:400}
