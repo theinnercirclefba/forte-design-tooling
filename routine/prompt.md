@@ -62,6 +62,38 @@ The full build rules are in `skill/SKILL.md`. Read it. Pay particular attention 
 - Two-button hero rule
 - Outreach script choice (A for GolfWorking-template clubs, B for everything else)
 
+### 3.5. ICP-fit check — DO NOT BUILD if the club already has a premium site
+
+Before researching deeply, fetch the target club's existing website and decide if our £999 + £99/mo offer is genuinely an upgrade. Hard criteria for marking the lead `dead` and exiting WITHOUT building:
+
+- **Drone/aerial video** already on their homepage hero
+- **Custom build** that is NOT on a templated platform (ClubV1, GolfWorking, HowDidiDo, IntelligentGolf, BlueGolf, Squarespace, Wix)
+- **Recent design refresh** (clean modern typography, hero video, mobile-responsive obvious from the source HTML)
+
+To check:
+```bash
+curl -sL "<club-website>" | grep -iE "youtube|vimeo|video|hero" | head -5
+curl -sL "<club-website>" | grep -iE "golfworking|clubv1|howdidido|intelligentgolf|squarespace|wix" | head -3
+```
+
+If their site already has a YouTube/Vimeo hero embed AND no templated-platform signature, mark `dead`:
+
+```bash
+curl -s -X PATCH -H "x-build-agent-secret: $FORTE_CONTROL_SECRET" -H "content-type: application/json" \
+  -d "{\"status\":\"dead\",\"notes\":\"ICP mismatch — target already has a competent existing site with hero video. Not a clear upgrade at £999. Skipped.\"}" \
+  "$FORTE_CONTROL_BASE_URL/api/leads/$LEAD"
+```
+
+Then notify Lewis and exit cleanly:
+
+```bash
+curl -s -X POST -H "x-build-agent-secret: $FORTE_CONTROL_SECRET" -H "content-type: application/json" \
+  -d "{\"kind\":\"system\",\"title\":\"Lead skipped: $LEAD\",\"detail\":\"ICP mismatch — already has a premium site. Marked dead. Next routine will pick the next queued.\"}" \
+  "$FORTE_CONTROL_BASE_URL/api/notifications"
+```
+
+If the site IS on a templated platform OR has no hero video, proceed to Step 4.
+
 ### 4. Research the club
 
 Use WebSearch + WebFetch (you have these tools):
