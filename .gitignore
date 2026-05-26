@@ -1,0 +1,11 @@
+# Never commit videos, builds, or local artefacts
+*.mp4
+*.webm
+*.mov
+dist/
+node_modules/
+_video_analysis/
+.netlify/
+.env
+.env.local
+*.log

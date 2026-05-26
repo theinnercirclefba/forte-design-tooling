@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="Sherwood Forest Golf Club — a Nottinghamshire heathland members' club founded 1895, Harry Colt and James Braid course, 2023 Tournament Venue of the Year."/>
+<meta property="og:title" content="Sherwood Forest Golf Club"/>
+<meta property="og:description" content="A Harry Colt and James Braid heathland in Mansfield. Members since 1895."/>
+<meta property="og:type" content="website"/>
+<title>Sherwood Forest Golf Club — Est. 1895</title>
+<link rel="icon" href="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%235C2228'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='serif' font-size='18' fill='%23B89455' font-weight='500'%3ES%3C/text%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --burgundy:#5C2228;
+  --burgundy-dk:#3F1418;
+  --ivory:#F7F2E6;
+  --ivory-pale:#FDFAF2;
+  --forest:#1F3A2C;
+  --brass:#B89455;
+  --brass-dk:#9B7B43;
+  --ink:#1A1A1A;
+  --ink-soft:#3D3D3D;
+  --grey:#7A7368;
+  --line:rgba(26,26,26,.10);
+  --t-hover:200ms cubic-bezier(.4,0,.2,1);
+  --t-slow:500ms cubic-bezier(.16,.84,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--ivory);color:var(--ink);line-height:1.6;overflow-x:hidden;font-weight:400}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:0}
+.font-display{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;letter-spacing:-.005em}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;line-height:1.1;letter-spacing:-.005em}
+em{font-style:italic;font-weight:300;color:var(--brass)}
+.eyebrow{font-size:.7rem;letter-spacing:3.2px;text-transform:uppercase;font-weight:600;color:var(--brass)}
+
+/* ===== NAV ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:18px 56px;display:flex;align-items:center;justify-content:space-between;transition:background .4s ease,padding .4s ease;background:linear-gradient(180deg,rgba(63,20,24,.55) 0%,rgba(63,20,24,0) 100%)}
+.nav.scrolled{background:rgba(247,242,230,.96);backdrop-filter:blur(12px);padding:12px 56px;border-bottom:1px solid var(--line)}
+/* Nav brand reads as a LOGO (sans, uppercase, letter-spaced) — deliberately
+   different typographic register from the hero headline (which is Cormorant
+   serif). Stops the eye blending the two. Brass accent rule reinforces the
+   "logo" feel. */
+.nav-brand{display:flex;flex-direction:column;color:var(--ivory);transition:color var(--t-slow);padding-bottom:6px;border-bottom:1px solid rgba(184,148,85,.4)}
+.nav.scrolled .nav-brand{color:var(--burgundy);border-bottom-color:rgba(184,148,85,.55)}
+.nav-brand-mark{font-family:'Manrope',sans-serif;font-size:.92rem;font-weight:700;letter-spacing:4.5px;line-height:1;text-transform:uppercase}
+.nav-brand-est{font-size:.58rem;letter-spacing:2.8px;text-transform:uppercase;font-weight:500;opacity:.7;margin-top:6px}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-size:.78rem;letter-spacing:1.4px;text-transform:uppercase;font-weight:500;color:rgba(247,242,230,.85);transition:color var(--t-hover)}
+.nav.scrolled .nav-links a{color:var(--ink-soft)}
+.nav-links a:hover{color:var(--brass)}
+.nav-cta{background:var(--brass);color:var(--burgundy-dk)!important;padding:10px 22px;border-radius:2px;font-weight:600!important;transition:background var(--t-hover)}
+.nav-cta:hover{background:var(--brass-dk);color:var(--ivory)!important}
+
+/* ===== HERO — full-bleed drone, course is the star ===== */
+.hero{position:relative;height:100vh;min-height:640px;overflow:hidden;background:var(--burgundy-dk)}
+.hero-video-wrap{position:absolute;inset:0;overflow:hidden}
+.hero-video-wrap video{position:absolute;top:50%;left:50%;width:auto;height:100%;min-width:100%;min-height:100%;transform:translate(-50%,-50%);object-fit:cover;pointer-events:none}
+.hero-overlay{position:absolute;inset:0;z-index:3;background:linear-gradient(180deg,rgba(26,8,10,.62) 0%,rgba(26,8,10,.18) 22%,rgba(26,8,10,.08) 50%,rgba(26,8,10,.55) 82%,rgba(26,8,10,.88) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:0 56px 88px}
+.hero-content{max-width:780px;color:var(--ivory)}
+.hero-eyebrow{font-size:.72rem;letter-spacing:4px;text-transform:uppercase;font-weight:500;color:var(--brass);margin-bottom:22px;display:inline-flex;align-items:center;gap:18px}
+.hero-eyebrow::before{content:"";display:block;width:36px;height:1px;background:var(--brass)}
+.hero h1{font-size:clamp(2.8rem,6vw,5.4rem);color:var(--ivory);margin-bottom:22px;line-height:1.02;font-weight:400}
+.hero h1 em{color:var(--brass);font-style:italic;font-weight:300}
+.hero-tagline{font-size:1.1rem;line-height:1.65;color:rgba(247,242,230,.88);max-width:600px;margin-bottom:40px;font-weight:300}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.btn-primary{background:var(--brass);color:var(--burgundy-dk);padding:16px 36px;font-size:.74rem;letter-spacing:1.8px;text-transform:uppercase;font-weight:600;transition:background var(--t-slow),transform var(--t-slow);display:inline-block;border:1px solid var(--brass)}
+.btn-primary:hover{background:var(--brass-dk);color:var(--ivory);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ivory);padding:15px 36px;font-size:.74rem;letter-spacing:1.8px;text-transform:uppercase;font-weight:600;transition:all var(--t-slow);display:inline-block;border:1px solid rgba(247,242,230,.45)}
+.btn-ghost:hover{background:rgba(247,242,230,.08);border-color:var(--ivory)}
+.hero-membership-link{font-size:.78rem;color:rgba(247,242,230,.62);font-weight:400}
+.hero-membership-link a{color:rgba(247,242,230,.85);border-bottom:1px solid rgba(247,242,230,.22);transition:color var(--t-hover),border-color var(--t-hover)}
+.hero-membership-link a:hover{color:var(--brass);border-bottom-color:var(--brass)}
+.hero-credit{position:absolute;bottom:22px;right:32px;z-index:4;font-size:.62rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(247,242,230,.5);font-weight:500}
+.hero-credit a{color:rgba(247,242,230,.78);border-bottom:1px solid rgba(247,242,230,.22);transition:color var(--t-hover)}
+.hero-credit a:hover{color:var(--brass);border-bottom-color:var(--brass)}
+
+/* ===== HERITAGE STRIP ===== */
+.heritage{background:var(--burgundy);color:var(--ivory);padding:80px 56px}
+.heritage-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:48px}
+.heritage-cell{padding-right:48px;border-right:1px solid rgba(184,148,85,.25)}
+.heritage-cell:last-child{border-right:0}
+.heritage-n{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,4vw,3.6rem);font-weight:300;color:var(--brass);line-height:1;font-style:italic}
+.heritage-label{font-size:.72rem;letter-spacing:2.4px;text-transform:uppercase;color:rgba(247,242,230,.6);margin-top:14px;font-weight:500}
+.heritage-desc{font-size:.94rem;color:rgba(247,242,230,.8);line-height:1.6;margin-top:8px;font-weight:300}
+
+/* ===== STORY SECTION ===== */
+.story{background:var(--ivory);padding:120px 56px}
+.story-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.story-text h2{font-size:clamp(2.2rem,3.6vw,3rem);color:var(--burgundy);margin:18px 0 24px;line-height:1.1}
+.story-text h2 em{color:var(--brass)}
+.story-text p{font-size:1.05rem;color:var(--ink-soft);line-height:1.8;margin-bottom:20px;font-weight:300}
+.story-text .lede-first{font-size:1.18rem;color:var(--ink);font-weight:400;line-height:1.7;margin-bottom:24px}
+.story-callout{background:var(--burgundy);color:var(--ivory);padding:36px;margin-top:8px;border-left:3px solid var(--brass)}
+.story-callout-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;line-height:1.4;font-weight:300;color:var(--ivory)}
+.story-callout-attr{font-size:.74rem;letter-spacing:2px;text-transform:uppercase;color:var(--brass);margin-top:18px;font-weight:600}
+
+/* ===== PREVIEW CARDS ===== */
+.previews{background:var(--ivory-pale);padding:100px 56px}
+.section-head{text-align:center;max-width:680px;margin:0 auto 64px}
+.section-head h2{font-size:clamp(2.2rem,3.6vw,3rem);color:var(--burgundy);margin-top:14px;line-height:1.1}
+.section-head h2 em{color:var(--brass)}
+.previews-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.preview-card{background:var(--ivory);padding:36px;border:1px solid var(--line);transition:transform var(--t-slow),box-shadow var(--t-slow)}
+.preview-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -16px rgba(92,34,40,.18)}
+.preview-card h3{font-size:1.6rem;color:var(--burgundy);margin:10px 0 16px;line-height:1.2}
+.preview-card p{font-size:.95rem;color:var(--ink-soft);line-height:1.7;font-weight:300}
+.preview-card-link{display:inline-block;margin-top:22px;font-size:.74rem;letter-spacing:1.6px;text-transform:uppercase;font-weight:600;color:var(--burgundy);border-bottom:1px solid var(--burgundy);transition:color var(--t-hover),border-color var(--t-hover)}
+.preview-card-link:hover{color:var(--brass);border-bottom-color:var(--brass)}
+
+/* ===== CONTACT ===== */
+.contact{background:var(--burgundy-dk);color:var(--ivory);padding:100px 56px}
+.contact-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.contact-info h2{font-size:clamp(2.2rem,3.6vw,3rem);color:var(--ivory);margin:18px 0 24px;line-height:1.1}
+.contact-info h2 em{color:var(--brass)}
+.contact-info .lede{font-size:1.05rem;color:rgba(247,242,230,.8);max-width:520px;margin-bottom:36px;font-weight:300}
+.contact-block{margin-bottom:24px}
+.contact-block-label{font-size:.7rem;letter-spacing:2.4px;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:6px}
+.contact-block-val{font-size:1.05rem;color:var(--ivory);font-weight:400}
+.contact-block-val a{color:var(--ivory);border-bottom:1px solid rgba(184,148,85,.3);transition:border-color var(--t-hover)}
+.contact-block-val a:hover{border-bottom-color:var(--brass)}
+.contact-block-sub{font-size:.84rem;color:rgba(247,242,230,.6);margin-top:4px;font-weight:300}
+.map-wrap{aspect-ratio:4/3;background:#000;overflow:hidden;border:1px solid rgba(184,148,85,.2)}
+.map-wrap iframe{width:100%;height:100%;border:0}
+
+/* ===== FOOTER ===== */
+footer{background:var(--burgundy-dk);color:var(--ivory);padding:48px 56px;border-top:1px solid rgba(184,148,85,.15)}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px;font-size:.84rem;color:rgba(247,242,230,.6)}
+.footer-credit a{color:rgba(247,242,230,.85);border-bottom:1px solid rgba(184,148,85,.3)}
+.footer-credit a:hover{color:var(--brass)}
+
+@media (max-width: 900px) {
+  .heritage-inner,.story-inner,.contact-inner,.previews-grid{grid-template-columns:1fr;gap:32px}
+  .heritage-cell{border-right:0;border-bottom:1px solid rgba(184,148,85,.25);padding-bottom:32px;padding-right:0}
+  .heritage-cell:last-child{border-bottom:0}
+  .nav{padding:18px 24px}
+  .nav-links{gap:18px;display:none}
+  .hero{padding:100px 20px 48px}
+  .hero-frame{padding:24px}
+  .heritage,.story,.previews,.contact{padding:64px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">
+    <span class="nav-brand-mark">Sherwood Forest</span>
+    <span class="nav-brand-est">Est. 1895 · Mansfield</span>
+  </a>
+  <div class="nav-links">
+    <a href="#story">The Club</a>
+    <a href="#course">The Course</a>
+    <a href="#visit">Visit</a>
+    <a href="#contact">Contact</a>
+    <a href="https://sherwoodforest.intelligentgolf.co.uk/login.php" target="_blank" rel="noopener" class="nav-cta">Member Login</a>
+  </div>
+</nav>
+
+<!-- HERO — full-bleed drone, course is the star -->
+<section class="hero">
+  <div class="hero-video-wrap">
+    <!-- Self-hosted MP4 stitched from 8 cinematic segments of Swamp Men Golf
+         (Sherwood Forest episode). Pre-rendered as one seamless clip so there
+         are no seek operations, no YouTube UI, no pause icons — just continuous
+         loop. Original source credited in the .hero-credit element. -->
+    <video id="hero-video" src="hero.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+  </div>
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Heathland · Mansfield · Est. 1895</p>
+      <h1>A <em>Harry Colt</em> heathland,<br/>seasoned by <em>James Braid</em>.</h1>
+      <p class="hero-tagline">One of the great Notts heathland courses, in the ancient oak country north of Mansfield. Founded in 1895, refined by two of the greatest course architects of the last hundred years, and named England's Tournament Venue of the Year in 2023.</p>
+      <div class="hero-cta">
+        <a href="https://sherwoodforest.intelligentgolf.co.uk/visitorbooking.php" target="_blank" rel="noopener" class="btn-primary">Book as Visitor</a>
+        <a href="https://sherwoodforest.intelligentgolf.co.uk/login.php" target="_blank" rel="noopener" class="btn-ghost">Member Booking</a>
+      </div>
+      <p class="hero-membership-link">Not a member? <a href="#membership">Explore membership →</a></p>
+    </div>
+  </div>
+  <p class="hero-credit">Video · <a href="https://www.youtube.com/watch?v=2NCCaPVmrcM" target="_blank" rel="noopener">Swamp Men Golf</a></p>
+</section>
+
+<!-- HERITAGE STRIP -->
+<section class="heritage">
+  <div class="heritage-inner">
+    <div class="heritage-cell">
+      <div class="heritage-n">1895</div>
+      <div class="heritage-label">Established</div>
+      <div class="heritage-desc">Founded as Mansfield Golf Club. Moved to the current heathland site in 1912.</div>
+    </div>
+    <div class="heritage-cell">
+      <div class="heritage-n">Par 71</div>
+      <div class="heritage-label">6,860 Yards</div>
+      <div class="heritage-desc">Harry Colt 1911 layout, extended by James Braid 1927, refined by Cotton/Pennink/Steel/Hawtree.</div>
+    </div>
+    <div class="heritage-cell">
+      <div class="heritage-n">98</div>
+      <div class="heritage-label">Bunkers</div>
+      <div class="heritage-desc">No water hazards. Sand, heather, and ancient oak — that's the test.</div>
+    </div>
+    <div class="heritage-cell">
+      <div class="heritage-n">2023</div>
+      <div class="heritage-label">Venue of the Year</div>
+      <div class="heritage-desc">England Golf Awards — Tournament Venue of the Year. Open Regional Qualifying host.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="story-inner">
+    <div class="story-text">
+      <p class="eyebrow">The Club</p>
+      <h2>An <em>Edwardian heathland</em><br/>that the great architects rebuilt.</h2>
+      <p class="lede-first">Sherwood Forest is one of England's better-kept secrets — a top-100 heathland sitting on the southern edge of the ancient royal forest, designed by Harry Colt and finished by James Braid, with bunker refinements stretching across a hundred years of stewardship.</p>
+      <p>The club was founded as Mansfield Golf Club in 1895 and moved to the present site in 1912. Harry Colt — arguably the most influential British golf-course architect of his era — laid out the 1911 course. James Braid, five-time Open Champion, returned in 1927 to extend it to championship length. Henry Cotton, Frank Pennink, Donald Steel and the Hawtree practice have all touched the bunkering since.</p>
+      <p>The result is a course that demands strategic golf rather than length. Ninety-eight bunkers across heathland fairways. No water hazards. The famous &ldquo;Amen Corner&rdquo; — holes eleven through fourteen — sorts out the round more reliably than the scorecard would suggest.</p>
+      <p>The club is one of the four founding members of the <strong style="color:var(--burgundy);font-weight:600">Notts Heathland Tour</strong>, alongside Hollinwell, Coxmoor, and Lindrick. It hosts the Open Championship Regional Qualifying every year, and was named Tournament Venue of the Year by England Golf in 2023.</p>
+    </div>
+    <div>
+      <div class="story-callout">
+        <p class="story-callout-quote">&ldquo;One of the most natural and beautiful heathland courses in England — there's not a duff hole on the property.&rdquo;</p>
+        <p class="story-callout-attr">Top 100 Golf Courses · 2024 ranking</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW CARDS -->
+<section class="previews" id="course">
+  <div class="section-head">
+    <p class="eyebrow">Three reasons</p>
+    <h2>Play, <em>join</em>, or visit.</h2>
+  </div>
+  <div class="previews-grid">
+    <div class="preview-card">
+      <p class="eyebrow">The course</p>
+      <h3>Eighteen heathland holes</h3>
+      <p>Par 71 from the white tees at 6,860 yards. Strategic Harry Colt routing with bunkering refined across a hundred years. Amen Corner — holes eleven through fourteen — sorts the round out.</p>
+      <a href="#contact" class="preview-card-link">Course details →</a>
+    </div>
+    <div class="preview-card" id="membership">
+      <p class="eyebrow">Membership</p>
+      <h3>Join one of the great Notts heathlands</h3>
+      <p>Open across categories — full, age-tiered intermediate, junior from £65, and a phased joining fee (2× annual sub) spreadable over five years. Talk to the office.</p>
+      <a href="#contact" class="preview-card-link">Enquire about joining →</a>
+    </div>
+    <div class="preview-card" id="visit">
+      <p class="eyebrow">Visitors</p>
+      <h3>Green fees from £99</h3>
+      <p>Midweek green fees from £99, peak from £145, Friday and Sunday at a £10 supplement. Visitors welcome year-round through IntelligentGolf. 25% deposit on booking, non-refundable.</p>
+      <a href="https://sherwoodforest.intelligentgolf.co.uk/visitorbooking.php" target="_blank" rel="noopener" class="preview-card-link">Book a tee time →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <p class="eyebrow">Visit Sherwood Forest</p>
+      <h2>Eakring Road,<br/><em>Mansfield</em>.</h2>
+      <p class="lede">Three miles east of Mansfield town centre. Twenty minutes from junction 27 of the M1. An hour from Sheffield or Nottingham city centres.</p>
+      <div class="contact-block">
+        <div class="contact-block-label">Address</div>
+        <div class="contact-block-val">Eakring Road<br/>Mansfield, Nottinghamshire<br/>NG18 3EW</div>
+      </div>
+      <div class="contact-block">
+        <div class="contact-block-label">Office</div>
+        <div class="contact-block-val"><a href="tel:01623626689">01623 626689</a></div>
+        <div class="contact-block-sub">Press 1 for Pro Shop · 2 for Office · 3 for the General Manager (Simon Williams)</div>
+      </div>
+      <div class="contact-block">
+        <div class="contact-block-label">Email</div>
+        <div class="contact-block-val"><a href="mailto:info@sherwoodforestgolfclub.co.uk">info@sherwoodforestgolfclub.co.uk</a></div>
+      </div>
+    </div>
+    <div class="map-wrap">
+      <iframe src="https://www.google.com/maps?q=Sherwood+Forest+Golf+Club,+Eakring+Road,+Mansfield,+NG18+3EW&output=embed" title="Sherwood Forest Golf Club location" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>&copy; Sherwood Forest Golf Club 2026 · Founded 1895</div>
+    <div class="footer-credit">Designed and built by <a href="https://forte-design-uk.netlify.app" target="_blank" rel="noopener">Forte Design</a></div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 40) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+}, { passive: true });
+</script>
+
+<!-- Old YouTube-iframe loop implementation removed — replaced by a self-hosted
+     MP4 stitched from cinematic segments. The legacy code is preserved below
+     in a non-executing block so it can be revived for future builds that need
+     the YouTube embed pattern (e.g. clubs whose only source is a YouTube video
+     and copyright self-hosting isn't acceptable). -->
+<script type="text/x-archived-only-do-not-execute">
+/* ===== Hero video — cinematic-segment loop via YouTube IFrame API =====
+   The Swamp Men Golf video used as the hero has only one pure cinematic
+   segment (0–12s opening aerial); everything after that is gameplay with
+   score-graphic overlays. This loop holds the cinematic window indefinitely
+   without bleeding into the talking-head content. The CINEMATIC_SEGMENTS
+   array is structured so future videos with multiple cinematic intervals
+   can drop in additional [start, end] pairs and the loop will stitch them. */
+// Each [start, end] is verified against the video's actual scene-cut boundaries
+// so we don't bleed into gameplay or talking-head shots.
+const CINEMATIC_SEGMENTS = [
+  [0, 11],      // opening aerial — clubhouse + course panorama
+  [110, 115],   // crest flag + bronze stag statue (two adjacent scenic shots)
+  [232, 238],   // HOLE 1 drone aerial — "Hole 1 · Par 4 · 314 yards" graphic (trimmed from 244s — player swing at 240s)
+  [568, 570],   // drone aerial through the pines, fairway below
+  [934, 937],   // HOLE 5 drone — "Hole 5 · Par 5 · 485 yards" graphic
+  [1657, 1663], // HOLE 9 drone — "Hole 9 · Par 4 · 448 yards" graphic
+  [2391, 2397], // HOLE 14 drone — "Hole 14 · Par 4 · 410 yards" graphic
+  [2625, 2633]  // wide aerial — full course panorama at golden hour
+];
+
+(function heroVideoLoop() {
+  // Load the YouTube IFrame API (idempotent)
+  if (!window.YT && !document.querySelector('script[src*="iframe_api"]')) {
+    const s = document.createElement('script');
+    s.src = 'https://www.youtube.com/iframe_api';
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
+  let player = null;
+  let segmentIndex = 0;
+  let checkInterval = null;
+  let coverShownAt = 0;
+  let hideCoverTimer = null;
+  const hero = document.querySelector('.hero');
+
+  const showCover = () => {
+    coverShownAt = Date.now();
+    hero?.classList.remove('video-ready');
+    // Force a synchronous reflow/repaint so the browser actually commits the
+    // class change before any subsequent JS (like seekTo) runs. Without this,
+    // the YouTube buffer state can fire before the cover paints.
+    void hero?.offsetHeight;
+    if (hideCoverTimer) { clearTimeout(hideCoverTimer); hideCoverTimer = null; }
+  };
+
+  const hideCover = () => {
+    // Enforce a minimum on-screen time so a fast seek doesn't make the cover
+    // flicker. 500ms is long enough to fully mask YouTube's pause-icon overlay
+    // animation, which itself runs about 400ms.
+    const elapsed = Date.now() - coverShownAt;
+    const delay = Math.max(0, 500 - elapsed);
+    if (hideCoverTimer) clearTimeout(hideCoverTimer);
+    hideCoverTimer = setTimeout(() => hero?.classList.add('video-ready'), delay);
+  };
+
+  const goToSegment = (i) => {
+    if (!player) return;
+    showCover();
+    const [start] = CINEMATIC_SEGMENTS[i];
+    // Wait two animation frames + a small timeout so the cover is fully painted
+    // by the GPU before we trigger the seek (which causes YouTube to render its
+    // pause icon). This is the key fix for the icon leaking through.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          try { player.seekTo(start, true); } catch (_) {}
+        }, 80);
+      });
+    });
+  };
+
+  const startMonitoring = () => {
+    if (checkInterval) clearInterval(checkInterval);
+    checkInterval = setInterval(() => {
+      if (!player || typeof player.getCurrentTime !== 'function') return;
+      const t = player.getCurrentTime();
+      const [, end] = CINEMATIC_SEGMENTS[segmentIndex];
+      if (t >= end - 0.1) {
+        segmentIndex = (segmentIndex + 1) % CINEMATIC_SEGMENTS.length;
+        goToSegment(segmentIndex);
+      }
+    }, 250);
+  };
+
+  const initPlayer = () => {
+    if (!window.YT || !window.YT.Player) return;
+    try {
+      player = new window.YT.Player('hero-yt', {
+        events: {
+          onReady: () => {
+            showCover();   // ensure cover is up while we set up
+            goToSegment(0);
+            try { player.mute(); player.playVideo(); } catch (_) {}
+            startMonitoring();
+          },
+          onStateChange: (e) => {
+            // YT.PlayerState constants: BUFFERING=3, PLAYING=1, ENDED=0
+            if (e.data === 1) {
+              // Video is reliably playing — fade the cover off
+              hideCover();
+            } else if (e.data === 3) {
+              // Buffering — keep the cover up
+              showCover();
+            } else if (e.data === 0) {
+              segmentIndex = (segmentIndex + 1) % CINEMATIC_SEGMENTS.length;
+              goToSegment(segmentIndex);
+              try { player.playVideo(); } catch (_) {}
+            }
+          }
+        }
+      });
+    } catch (err) {
+      // API attach failed — iframe still autoplays via URL params, so the
+      // user still sees the video; we just lose precise loop control.
+      console.warn('Hero loop init failed:', err);
+    }
+  };
+
+  if (window.YT && window.YT.Player) initPlayer();
+  else window.onYouTubeIframeAPIReady = initPlayer;
+})();
+</script>
+
+</body>
+</html>
