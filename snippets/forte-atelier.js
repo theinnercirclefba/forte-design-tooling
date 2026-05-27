@@ -5,112 +5,6 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- Three.js dimple sphere (decorative brass golf ball) ---------- */
-  function initWebGL(){
-    if (reduceMotion) return;
-    if (typeof THREE === 'undefined') return;
-    var hero = document.querySelector('.hero, .home-hero, .page-hero');
-    if (!hero) return;
-    // Only on the home hero — never on inner-page banners
-    if (hero.classList.contains('page-hero') && !hero.classList.contains('hero')) return;
-    if (window.innerWidth < 520) return;
-
-    var mount = document.createElement('div');
-    mount.className = 'forte-3d-decoration';
-    mount.setAttribute('aria-hidden', 'true');
-    hero.appendChild(mount);
-
-    var width = mount.clientWidth;
-    var height = mount.clientHeight;
-
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.z = 3.4;
-
-    var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(width, height);
-    renderer.setClearColor(0x000000, 0);
-    mount.appendChild(renderer.domElement);
-
-    // Brass material
-    var sphereGeo = new THREE.SphereGeometry(1, 64, 64);
-    var brassColor = new THREE.Color('#b8995a');
-    var brassMat = new THREE.MeshStandardMaterial({
-      color: brassColor,
-      metalness: 0.78,
-      roughness: 0.32,
-      flatShading: false
-    });
-
-    var ball = new THREE.Mesh(sphereGeo, brassMat);
-    scene.add(ball);
-
-    // Dimples as small inset spheres (illustrative — not literal golf-ball geometry)
-    // Place ~120 small darker spheres on the surface for the dimple effect
-    var dimpleGeo = new THREE.SphereGeometry(0.045, 12, 12);
-    var dimpleMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#8a6f3a'),
-      metalness: 0.6,
-      roughness: 0.5
-    });
-    var dimples = new THREE.Group();
-    var dimpleCount = 96;
-    for (var i = 0; i < dimpleCount; i++){
-      var phi = Math.acos(-1 + (2 * i) / dimpleCount);
-      var theta = Math.sqrt(dimpleCount * Math.PI) * phi;
-      var d = new THREE.Mesh(dimpleGeo, dimpleMat);
-      d.position.set(
-        Math.cos(theta) * Math.sin(phi) * 1.0,
-        Math.sin(theta) * Math.sin(phi) * 1.0,
-        Math.cos(phi) * 1.0
-      );
-      d.position.multiplyScalar(0.97); // sit just below surface
-      dimples.add(d);
-    }
-    ball.add(dimples);
-
-    // Lighting
-    var ambient = new THREE.AmbientLight(0xffffff, 0.45);
-    scene.add(ambient);
-    var key = new THREE.DirectionalLight(0xfff1d4, 1.4);
-    key.position.set(2, 3, 4);
-    scene.add(key);
-    var fill = new THREE.DirectionalLight(0x7a90b8, 0.35);
-    fill.position.set(-3, -1, 2);
-    scene.add(fill);
-    var rim = new THREE.PointLight(0xb8995a, 1.2, 8);
-    rim.position.set(-2, 1.5, -2);
-    scene.add(rim);
-
-    var t = 0;
-    var scrollY = 0;
-    window.addEventListener('scroll', function(){ scrollY = window.scrollY; }, { passive: true });
-
-    function animate(){
-      t += 0.0048;
-      ball.rotation.y = t;
-      ball.rotation.x = Math.sin(t * 0.7) * 0.18;
-      // Subtle scroll-driven tilt
-      ball.position.y = Math.min(scrollY * -0.0025, 0.6);
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    requestAnimationFrame(function(){
-      setTimeout(function(){ mount.classList.add('is-loaded'); }, 120);
-    });
-
-    window.addEventListener('resize', function(){
-      var w = mount.clientWidth;
-      var h = mount.clientHeight;
-      if (w === 0 || h === 0) return;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-    });
-  }
 
   /* ---------- Ambient audio toggle ---------- */
   function initAudio(){
@@ -260,7 +154,6 @@
   }
 
   function init(){
-    initWebGL();
     initAudio();
     initPersonalisation();
   }

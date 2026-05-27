@@ -1,40 +1,5 @@
 /* === FORTE ATELIER LAYER === */
 
-/* Three.js decorative canvas (hero corner) */
-.forte-3d-decoration {
-  position: absolute;
-  top: 50%;
-  right: 56px;
-  transform: translateY(-50%);
-  width: 220px;
-  height: 220px;
-  z-index: 4;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 1.8s ease 0.4s;
-}
-.forte-3d-decoration.is-loaded {
-  opacity: 0.6;
-}
-.forte-3d-decoration canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-}
-@media (max-width: 900px) {
-  .forte-3d-decoration {
-    width: 130px;
-    height: 130px;
-    right: 16px;
-    top: 110px;
-    transform: none;
-  }
-  .forte-3d-decoration.is-loaded { opacity: 0.4; }
-}
-@media (max-width: 520px) {
-  .forte-3d-decoration { display: none; }
-}
-
 /* Ambient audio toggle */
 .forte-audio-toggle {
   position: fixed;
@@ -203,7 +168,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .forte-3d-decoration { display: none; }
   .forte-audio-toggle { animation: none; opacity: 1; transform: none; }
   .forte-audio-toggle.is-playing .forte-audio-icon::before { animation: none; }
   .forte-member-pulse { animation: none; }
